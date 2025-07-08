@@ -1,4 +1,4 @@
-# Premiere MCP Server
+# Premiere Pro MCP Server
 
 ![Premiere Pro Timeline Example](timeline1e.jpg)
 
