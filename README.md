@@ -43,9 +43,84 @@ The server exposes the following tools via MCP API:
 - Node.js (LTS recommended)
 - MCP-compatible client (optional, for automation)
 
+## What is CEP?
+
+Adobe CEP (Common Extensibility Platform) is the technology that enables custom panels and extensions in Adobe Creative Cloud apps like Premiere Pro, After Effects, and Photoshop.  
+Learn more and find developer resources at the [Adobe CEP GitHub Organization](https://github.com/Adobe-CEP).
+
+---
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- **Adobe Premiere Pro** (or compatible Adobe app)
+- **Node.js** (if the MCP server is Node-based) or Python (if Python-based)
+- **Access to the Premiere MCP Server code**
+- **The CEP extension files** (included in this repo or provided separately)
+
 ---
 
 ## Installation & Usage Guide
+
+### 1. Install the CEP Extension
+
+1. **Locate the extension folder**  
+   (Usually named something like `com.yourcompany.premiere-mcp`)
+
+2. **Copy the folder to the Adobe CEP extensions directory:**
+
+   - **Windows:**  
+     ```
+     %APPDATA%\Adobe\CEP\extensions
+     ```
+   - **macOS:**  
+     ```
+     ~/Library/Application Support/Adobe/CEP/extensions
+     ```
+
+3. **Enable Developer Mode** in Adobe apps:  
+   - Open the Creative Cloud app
+   - Go to Preferences → “Plugins” → Enable “Developer Mode”
+   - Or, for older versions, set the `PlayerDebugMode` registry key (see [Adobe-CEP/Getting-Started](https://github.com/Adobe-CEP/Getting-Started))
+
+4. **Restart Premiere Pro**  
+   - Open the app, go to `Window > Extensions` and select your panel.
+
+### 2. Install & Run the MCP Server
+
+1. **Install dependencies**  
+   (e.g., for Node.js: `npm install` or for Python: `pip install -r requirements.txt`)
+
+2. **Start the server**  
+   (e.g., `npm start`, `node server.js`, or `python server.py`)
+
+   > By default, the server runs on `localhost:PORT` (replace PORT with your config, e.g., 5000).
+
+3. **Keep the server running** while using the extension in Premiere Pro.
+
+### 3. Configure the Extension (if needed)
+
+- If your extension requires specifying the server URL/port, edit the config file or use the panel’s settings.
+
+### 4. Troubleshooting
+
+- **Status: Error: Failed to fetch**  
+  This means the MCP server is not running or is unreachable.  
+  - Make sure the server is started and matches the port expected by the extension.
+  - Check firewall/antivirus settings.
+
+- **Panel not showing up in Premiere**  
+  - Confirm the extension is in the correct directory.
+  - Developer Mode must be enabled.
+  - Restart Premiere after installation.
+
+- **More help:**  
+  See [Adobe-CEP/Getting-Started](https://github.com/Adobe-CEP/Getting-Started) and [Adobe-CEP](https://github.com/Adobe-CEP) for additional documentation and troubleshooting tips.
+
+---
+
+## Installation & Usage Guide for Premiere MCP Server
 
 ### 1. Prerequisites
 - **Adobe Premiere Pro** (latest or supported version installed)
