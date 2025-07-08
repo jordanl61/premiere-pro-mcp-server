@@ -1,0 +1,17 @@
+{
+  "name": "premiere-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP Server for Premiere Pro",
+  "main": "mcp-server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.cjs",
+    "mcp": "node mcp-server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "@modelcontextprotocol/sdk": "^0.4.0",
+    "node-fetch": "^3.3.2"
+  }
+}
