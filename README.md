@@ -107,7 +107,7 @@ node mcp-server.js
 
 
 ## License
-This project is provided as-is, without warranty of any kind. See the LICENSE file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
