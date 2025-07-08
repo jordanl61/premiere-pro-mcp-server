@@ -144,6 +144,21 @@ class PremiereProMCPServer {
           }
         },
         {
+          name: "trim_clip_by_frames",
+          description: "Trim or extend the in/out point of a video or audio clip by a number of frames.",
+          inputSchema: {
+            type: "object",
+            properties: {
+              sequenceId: { type: "number", description: "Index of the sequence (0-based)" },
+              clipId: { type: "string", description: "ID of the clip to trim" },
+              framesDelta: { type: "number", description: "Number of frames to trim (positive or negative)" },
+              direction: { type: "string", enum: ["in", "out"], description: "Which edit point to trim ('in' or 'out')" },
+              trackType: { type: "string", enum: ["video", "audio"], description: "Track type ('video' or 'audio')" }
+            },
+            required: ["sequenceId", "clipId", "framesDelta", "direction", "trackType"]
+          }
+        },
+        {
           name: 'create_sequence',
           description: 'Create a new sequence in Premiere Pro',
           inputSchema: {
@@ -245,6 +260,29 @@ class PremiereProMCPServer {
 
           case 'export_project':
             return await this.exportProject(args);
+
+          case 'trim_clip_by_frames': {
+            // Dynamically import and call the ExtendScript function
+            const { sequenceId, clipId, framesDelta, direction, trackType } = args;
+            // Here you would use your existing bridge to call the ExtendScript file
+            // For demonstration, we'll assume a function runExtendScriptFile exists
+            const { runExtendScriptFile } = require('./runExtendScriptFile');
+            const result = await runExtendScriptFile('trimClipByFrames.jsx', 'trimClipByFrames', [sequenceId, clipId, framesDelta, direction, trackType]);
+            if (result && result.success) {
+              return {
+                content: [
+                  { type: 'text', text: `✅ Clip trimmed successfully.` }
+                ]
+              };
+            } else {
+              return {
+                content: [
+                  { type: 'text', text: `❌ Failed to trim clip: ${result && result.error ? result.error : 'Unknown error'}` }
+                ],
+                isError: true
+              };
+            }
+          }
 
           default:
             throw new Error(`Unknown tool: ${name}`);

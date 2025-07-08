@@ -35,10 +35,55 @@ The server exposes the following tools via MCP API:
 - **get_render_queue**: Get current render queue status and items
 - **create_sequence**: Create a new sequence in Premiere Pro
 - **export_project**: Export the current project or sequence
+- **trim_clip_by_frames**: Trim (or extend) the in/out point of a video or audio clip by a specified number of frames.
+  - Parameters: sequenceId, clipId, framesDelta, direction ('in'|'out'), trackType ('video'|'audio')
 
 ---
 
-## Requirements
+## UI Integration Example
+
+To add a UI for trimming clips by frames, include the following snippet in your CEP panel:
+
+```html
+<div>
+  <label>Track Type:
+    <select id="trackType">
+      <option value="video">Video</option>
+      <option value="audio">Audio</option>
+    </select>
+  </label>
+  <label>Direction:
+    <select id="direction">
+      <option value="in">In</option>
+      <option value="out">Out</option>
+    </select>
+  </label>
+  <label>Frames Delta:
+    <input type="number" id="framesDelta" value="10" />
+  </label>
+  <button onclick="trimClipUI()">Trim Clip</button>
+</div>
+<script>
+async function trimClipUI() {
+  // Replace with actual logic to get selected sequence/clip IDs
+  const sequenceId = 0; // Example: active sequence index
+  const clipId = getSelectedClipId(); // Implement this function based on your panel logic
+  const framesDelta = parseInt(document.getElementById('framesDelta').value, 10);
+  const direction = document.getElementById('direction').value;
+  const trackType = document.getElementById('trackType').value;
+
+  const response = await fetch('http://localhost:5000/trim_clip_by_frames', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ sequenceId, clipId, framesDelta, direction, trackType })
+  });
+  const result = await response.json();
+  alert(result.content[0].text);
+}
+</script>
+```
+
+Replace `getSelectedClipId()` with your actual logic for getting the selected clip.
 - Adobe Premiere Pro (tested on latest versions)
 - Node.js (LTS recommended)
 - MCP-compatible client (optional, for automation)
