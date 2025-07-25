@@ -4,6 +4,10 @@
 
 **Unofficial MCP (Model Context Protocol) Server for Adobe Premiere Pro**
 
+<a href="https://glama.ai/mcp/servers/@jordanl61/premiere-pro-mcp-server">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@jordanl61/premiere-pro-mcp-server/badge" alt="Premiere Pro Server MCP server" />
+</a>
+
 ---
 
 ## Overview
